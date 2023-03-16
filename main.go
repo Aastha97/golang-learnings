@@ -46,7 +46,7 @@ func main() {
 
 	start1, _ := strconv.Atoi(rangeSplit1[0])
 
-	//end1, _ := strconv.Atoi(rangeSplit1[1])
+	end1, _ := strconv.Atoi(rangeSplit1[1])
 
 	rangeSplit2 := strings.Split(os.Args[2], "-")
 
@@ -54,41 +54,49 @@ func main() {
 
 	end2, _ := strconv.Atoi(rangeSplit2[1])
 
-	p1 := players("Holding at "+strconv.Itoa(start1), func(score, turnTotal int) bool {
-		return turnTotal >= start1
-	})
+	for j := start1; j <= end1; j++ {
+		p1 := players("Holding at "+strconv.Itoa(j), func(score, turnTotal int) bool {
+			return turnTotal >= j
+		})
+		p1TotalWins := 0
+		p2TotalWins := 0
+		totalgames := 0
 
-	for i := start2; i <= end2; i++ {
-		if i != start1 {
-			p2 := players("Holding at "+strconv.Itoa(i), func(score, turnTotal int) bool {
-				return turnTotal >= i
-			})
-			p1Wins := 0
-			p2Wins := 0
+		for i := start2; i <= end2; i++ {
+			if i != j {
+				p2 := players("Holding at "+strconv.Itoa(i), func(score, turnTotal int) bool {
+					return turnTotal >= i
+				})
+				p1Wins := 0
+				p2Wins := 0
 
-			for i := 0; i < 10; i++ {
-				p1Score := 0
-				p2Score := 0
+				for i := 0; i < 10; i++ {
+					p1Score := 0
+					p2Score := 0
 
-				for p1Score < 100 && p2Score < 100 {
-					p1Score += p1.Play()
-					if p1Score >= 100 {
-						p1Wins++
-						break
+					for p1Score < 100 && p2Score < 100 {
+						p1Score += p1.Play()
+						if p1Score >= 100 {
+							p1Wins++
+							break
+						}
+
+						p2Score += p2.Play()
+						if p2Score >= 100 {
+							p2Wins++
+							break
+						}
 					}
 
-					p2Score += p2.Play()
-					if p2Score >= 100 {
-						p2Wins++
-						break
-					}
 				}
-
+				p1TotalWins += p1Wins
+				p2TotalWins += p2Wins
+				totalgames = p1TotalWins + p2TotalWins
 			}
-			fmt.Printf("%s vs %s: wins: %d/10 (%.1f%%), losses: %d/10 (%.1f%%)\n",
-				p1.name, p2.name, p1Wins, float64(p1Wins)*100/10, 10-p1Wins, float64(10-p1Wins)*100/10)
+
 		}
 
+		fmt.Printf("Result: Wins, losses staying at k =  %d: %d/%d (%.1f%%), %d/%d (%.1f%%)\n", j, p1TotalWins, totalgames, float64(p1TotalWins*100/totalgames), p2TotalWins, totalgames, float64(p2TotalWins*100/totalgames))
 	}
 
 }
