@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"golang-learnings/piggame"
 	"os"
 )
 
@@ -10,6 +11,5 @@ func main() {
 		fmt.Println("Usage: go run ./main <player1_strategy> <player2_strategy>")
 		return
 	}
-
-	pigGame(os.Args)
+	piggame.PigGame(os.Args)
 }

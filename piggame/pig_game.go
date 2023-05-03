@@ -1,4 +1,4 @@
-package main
+package piggame
 
 import (
 	"fmt"
@@ -35,7 +35,7 @@ func (p Player) Play() int {
 	return score
 }
 
-func pigGame(args []string) {
+func PigGame(args []string) {
 	rangeSplit1 := strings.Split(os.Args[1], "-")
 
 	start1, _ := strconv.Atoi(rangeSplit1[0])
