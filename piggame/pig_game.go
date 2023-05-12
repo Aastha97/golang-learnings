@@ -1,4 +1,4 @@
-package piggame
+package pigGame
 
 import (
 	"fmt"
