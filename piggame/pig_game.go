@@ -3,7 +3,6 @@ package pigGame
 import (
 	"fmt"
 	"math/rand"
-	"os"
 	"strconv"
 	"strings"
 )
@@ -35,14 +34,14 @@ func (p Player) Play() int {
 	return score
 }
 
-func PigGame(args []string) {
-	rangeSplit1 := strings.Split(os.Args[1], "-")
+func PigGame(args1, args2 string) {
+	rangeSplit1 := strings.Split(args1, "-")
 
 	start1, _ := strconv.Atoi(rangeSplit1[0])
 
 	end1, _ := strconv.Atoi(rangeSplit1[1])
 
-	rangeSplit2 := strings.Split(os.Args[2], "-")
+	rangeSplit2 := strings.Split(args2, "-")
 
 	start2, _ := strconv.Atoi(rangeSplit2[0])
 

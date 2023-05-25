@@ -1,14 +1,14 @@
 package cmd
 
 import (
-	"fmt"
 	"golang-learnings/pigGame"
 	"os"
 
 	"github.com/spf13/cobra"
 )
 
-var problemStatement int
+var problemStatement string
+var limit int
 
 var rootCmd = &cobra.Command{
 	Use:   "practice",
@@ -21,20 +21,21 @@ var rootCmd = &cobra.Command{
 		}
 
 		switch problemStatement {
-		case 1:
-			fmt.Println("")
+		case "piggame":
+			player1Strategy := os.Args[3]
+			player2Strategy := os.Args[4]
+			pigGame.PigGame(player1Strategy, player2Strategy)
+
+		case "quiz1":
+
 		default:
-			if len(os.Args) != 3 {
-				fmt.Println("Usage: go run ./golang-learnings <player1_strategy> <player2_strategy>")
-				return
-			}
-			pigGame.PigGame(os.Args)
 		}
 	},
 }
 
 func init() {
-	rootCmd.Flags().IntVarP(&problemStatement, "problemStatement", "p", 0, "Problem Statement")
+	rootCmd.Flags().StringVarP(&problemStatement, "problemStatement", "p", "", "Problem Statement")
+	rootCmd.Flags().IntVarP(&limit, "limit", "l", 0, "Limit for quiz 1")
 
 }
 func Execute() {
